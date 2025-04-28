@@ -1,99 +1,47 @@
-Sistema Distribuido de Control de Combustible - Empresa XYZ
-Descripción
-Sistema distribuido basado en microservicios utilizando .NET 8 y gRPC para gestionar el consumo de combustible de maquinaria liviana y pesada en la empresa XYZ. El proyecto busca mejorar el control, optimizar recursos y facilitar la administración de rutas, vehículos y choferes.
+# Sistema Distribuido de Control de Combustible - Empresa XYZ
 
-Objetivo General
-Desarrollar un sistema distribuido de gestión de consumo de combustible, asegurando alta disponibilidad, escalabilidad y separación entre maquinaria liviana y pesada.
+## Descripción
+Sistema distribuido basado en microservicios utilizando **.NET 8** y **gRPC**, diseñado para la gestión del consumo de combustible de maquinaria liviana y pesada en la empresa XYZ.
 
-Objetivos Específicos
-Implementar microservicios independientes para choferes, vehículos, rutas y consumo de combustible.
+## Objetivo General
+Desarrollar un sistema distribuido que permita controlar de forma eficiente el consumo de combustible de la flota de vehículos.
 
-Usar gRPC como mecanismo de comunicación eficiente.
+## Objetivos Específicos
+- Implementar microservicios independientes para el control de choferes, vehículos, rutas y consumo de combustible.
+- Utilizar **gRPC** como mecanismo de comunicación entre microservicios.
+- Asegurar alta disponibilidad y escalabilidad del sistema.
+- Separar la administración de maquinaria liviana y pesada.
+- Garantizar la interoperabilidad entre componentes distribuidos.
 
-Asegurar disponibilidad y escalabilidad mediante arquitectura distribuida.
+## Arquitectura General
+- **Estilo arquitectónico:** Microservicios
+- **Comunicación:** gRPC (Protocol Buffers)
+- **Persistencia:** Bases de datos separadas o esquema compartido (SQL Server / MongoDB)
+- **Contenedores:** Docker
+- **Orquestación:** Kubernetes (futuro)
 
-Separar la administración entre maquinaria liviana y pesada.
+## Componentes Principales
+- **DriversService:** Gestión de choferes
+- **VehiclesService:** Gestión de vehículos (livianos y pesados)
+- **RoutesService:** Gestión de rutas y distancias
+- **FuelService:** Registro de consumo de combustible
+- **AuthService:** Autenticación y autorización con JWT
 
-Garantizar interoperabilidad entre componentes distribuidos en diferentes entornos de red.
+## Diseño de Microservicios
+Cada microservicio está estructurado en las siguientes capas:
+- `Controllers` (gRPC)
+- `Application` (Lógica de negocio)
+- `Domain` (Entidades, interfaces)
+- `Infrastructure` (Acceso a datos, clientes gRPC)
+- `Persistence` (Manejo de bases de datos)
 
-Arquitectura General
-Estilo arquitectónico: Microservicios
-
-Comunicación entre servicios: gRPC
-
-Persistencia: Base de datos por microservicio (SQL Server / MongoDB)
-
-Contenedores: Docker
-
-Orquestación futura: Kubernetes
-
-Exposición externa: API Gateway (opcional)
-
-Componentes del Sistema
-Servicio de Choferes (DriversService)
-
-Servicio de Vehículos (VehiclesService)
-
-Servicio de Rutas (RoutesService)
-
-Servicio de Combustible (FuelService)
-
-Servicio de Autenticación y Autorización
-
-Diseño Modular por Dominio
-Cada microservicio se estructura en capas:
-
-Controllers (gRPC)
-
-Application (Lógica de negocio)
-
-Domain (Entidades, interfaces)
-
-Infrastructure (Acceso a datos, clientes gRPC)
-
-Persistence (Persistencia en bases de datos)
-
-Separación por Maquinaria
-Los servicios de vehículos y combustible distinguen entre:
-
-csharp
-Copy
-Edit
+## Separación de Maquinaria
+El sistema diferencia entre maquinaria **liviana** y **pesada** mediante el siguiente enum:
+```csharp
 public enum TipoMaquinaria {
     Liviana,
     Pesada
 }
-Esto permite adaptar la lógica del sistema dinámicamente según el tipo de maquinaria.
-
-Seguridad y Autenticación
-Autenticación: JWT
-
-Roles: Admin, Operador, Supervisor
-
-Autorización: Basada en endpoints gRPC o API Gateway
-
-Monitoreo y Escalabilidad
-Logging: Serilog / Elastic Stack
-
-Escalado: Horizontal por microservicio
-
-Orquestación: Kubernetes (futuro)
-
-Tecnologías Utilizadas
-Backend: .NET 8
-
-Comunicación: gRPC + Protocol Buffers
-
-Bases de Datos: SQL Server / MongoDB
-
-Contenedores: Docker
-
-Orquestación: Kubernetes (opcional)
-
-Estructura del Proyecto
-plaintext
-Copy
-Edit
 /src
   /Services
     /XYZ.DriversService
@@ -104,17 +52,13 @@ Edit
   /Shared
   /Gateway (opcional)
   /Infrastructure (docker-compose, bases de datos)
-Cómo Empezar
-Clona el repositorio:
-
-bash
-Copy
-Edit
+Pasos
+Clonar el repositorio:
 git clone https://github.com/empresaXYZ/sistema-combustible.git
-Construye los servicios con Docker:
+cd sistema-combustible
 
-bash
-Copy
-Edit
-docker-compose up --build
-Accede a los servicios gRPC o vía API Gateway (si está habilitado).
+
+---
+
+¿Te gustaría que también te genere una versión con algunos *badges* (por ejemplo: Docker ready, .NET 8, Kubernetes ready)? 🚀  
+¡Podría hacer que tu `README.md` se vea aún más profesional si quieres!
