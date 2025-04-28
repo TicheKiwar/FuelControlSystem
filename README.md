@@ -34,14 +34,9 @@ Cada microservicio está estructurado en las siguientes capas:
 - `Domain` (Entidades, interfaces)
 - `Infrastructure` (Acceso a datos, clientes gRPC)
 - `Persistence` (Manejo de bases de datos)
-
-## Separación de Maquinaria
+## Estructura del proyecto
 El sistema diferencia entre maquinaria **liviana** y **pesada** mediante el siguiente enum:
-```csharp
-public enum TipoMaquinaria {
-    Liviana,
-    Pesada
-}
+`
 /src
   /Services
     /XYZ.DriversService
@@ -52,13 +47,15 @@ public enum TipoMaquinaria {
   /Shared
   /Gateway (opcional)
   /Infrastructure (docker-compose, bases de datos)
+`
+## Clonar el repositorio
+El sistema diferencia entre maquinaria **liviana** y **pesada** mediante el siguiente enum:
+
 Pasos
 Clonar el repositorio:
-git clone https://github.com/empresaXYZ/sistema-combustible.git
+`
+https://github.com/TicheKiwar/FuelControlSystem.git
+`
 cd sistema-combustible
 
 
----
-
-¿Te gustaría que también te genere una versión con algunos *badges* (por ejemplo: Docker ready, .NET 8, Kubernetes ready)? 🚀  
-¡Podría hacer que tu `README.md` se vea aún más profesional si quieres!
