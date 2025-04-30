@@ -1,9 +1,9 @@
-﻿using AuthService.AuthService.Domain.Roles;
+﻿using AuthService.AuthService.Domain.Enums;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System.Collections.Generic;
 
-namespace AuthService.AuthService.Domain.User
+namespace AuthService.AuthService.Domain.Entities
 {
     public class User
     {
