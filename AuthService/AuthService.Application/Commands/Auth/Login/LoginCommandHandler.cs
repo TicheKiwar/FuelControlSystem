@@ -7,10 +7,10 @@ namespace AuthService.AuthService.Application.Commands.Auth.Login
 {
     public class LoginCommandHandler : IRequestHandler<LoginCommand, AuthResponse>
     {
-        private readonly UserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IAuthService _authService;
 
-        public LoginCommandHandler(UserRepository userRepository, IAuthService authService)
+        public LoginCommandHandler(IUserRepository userRepository, IAuthService authService)
         {
             _userRepository = userRepository;
             _authService = authService;
