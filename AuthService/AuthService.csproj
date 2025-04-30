@@ -18,7 +18,6 @@
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="AuthService.Application\" />
-    <Folder Include="AuthService.Domain\" />
     <Folder Include="AuthService.Infrastructure\" />
   </ItemGroup>
 
