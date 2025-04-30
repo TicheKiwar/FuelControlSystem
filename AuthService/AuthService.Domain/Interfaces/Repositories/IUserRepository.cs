@@ -12,7 +12,7 @@ namespace AuthService.AuthService.Domain.Interfaces.Repositories
         Task AddAsync(User user);
         Task UpdateAsync(User user);
         Task DeleteAsync(Guid id);
-        Task<bool> CheckPasswordAsync(Guid userId, string password);
+        Task<bool> CheckPasswordAsync(string userId, string password);
         Task AddRoleToUserAsync(Guid userId, UserRole role); 
         Task RemoveRoleFromUserAsync(Guid userId, UserRole role);
         Task<IEnumerable<User>> GetUsersByRoleAsync(UserRole role);

@@ -1,4 +1,5 @@
-﻿using AuthService.AuthService.Application.Common.Interfaces;
+﻿using AuthService.AuthService.Api.Settings;
+using AuthService.AuthService.Application.Common.Interfaces;
 using AuthService.AuthService.Domain.Entities;
 using AuthService.AuthService.Domain.Enums;
 using AuthService.AuthService.Domain.Interfaces.Repositories;

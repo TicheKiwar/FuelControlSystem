@@ -7,15 +7,16 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using AuthService.AuthService.Api.Settings;
 
 namespace AuthService.AuthService.Infrastructure.Services
 {
-    public class AuthService : IAuthService
+    public class AuthServiceImpl : IAuthService
     {
         private readonly IUserRepository _userRepository;
         private readonly JwtSettings _jwtSettings;
 
-        public AuthService(IUserRepository userRepository, IOptions<JwtSettings> jwtSettings)
+        public AuthServiceImpl(IUserRepository userRepository, IOptions<JwtSettings> jwtSettings)
         {
             _userRepository = userRepository;
             _jwtSettings = jwtSettings.Value;
@@ -23,7 +24,7 @@ namespace AuthService.AuthService.Infrastructure.Services
 
         public async Task<AuthResult> Authenticate(User user, string password)
         {
-            if (user == null || !await ValidateUserCredentials(user, password))
+            if (user == null || !await _userRepository.CheckPasswordAsync(user.Id, password))
             {
                 return new AuthResult(false);
             }
@@ -43,10 +44,6 @@ namespace AuthService.AuthService.Infrastructure.Services
                 DateTime.UtcNow.AddMinutes(_jwtSettings.ExpiryInMinutes));
         }
 
-        private Task<bool> ValidateUserCredentials(User user, string password)
-        {
-            return _userRepository.CheckPasswordAsync(user.Id, password);
-        }
 
         public async Task Register(User user, string password)
         {

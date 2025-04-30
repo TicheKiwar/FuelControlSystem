@@ -1,4 +1,5 @@
 ﻿using AuthService.AuthService.Domain.Entities;
+using AuthService.AuthService.Infrastructure.Settings;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
