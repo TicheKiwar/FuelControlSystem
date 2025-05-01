@@ -31,7 +31,7 @@ public class JwtMiddleware
         try
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_jwtSettings.Secret);
+            var key = Encoding.ASCII.GetBytes(_jwtSettings.Key);
 
             tokenHandler.ValidateToken(token, new TokenValidationParameters
             {
@@ -39,8 +39,8 @@ public class JwtMiddleware
                 IssuerSigningKey = new SymmetricSecurityKey(key),
                 ValidateIssuer = true,
                 ValidateAudience = true,
-                ValidIssuer = _jwtSettings.TokenIssuer,
-                ValidAudience = _jwtSettings.TokenAudience,
+                ValidIssuer = _jwtSettings.Issuer,
+                ValidAudience = _jwtSettings.Audience,
                 ClockSkew = TimeSpan.Zero
             }, out SecurityToken validatedToken);
 

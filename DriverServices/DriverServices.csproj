@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.5.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
     <PackageReference Include="MongoDB.Driver" Version="3.3.0" />
     <PackageReference Include="MongoFramework" Version="0.29.0" />
@@ -16,9 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="App\" />
-    <Folder Include="Domain\" />
-    <Folder Include="Infrastructure\" />
+    <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
 
 </Project>
