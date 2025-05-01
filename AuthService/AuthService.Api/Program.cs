@@ -1,4 +1,7 @@
-using Common.Common.Api;
+using AuthService.AuthService.Api.Config;
 
-var app = DefaultDistribWeb.CreateWebAplication();
-DefaultDistribWeb.RunWebAplication(app);
+// Crear y configurar la aplicación
+var app = FuelWebApplication.CreateWebApplication();
+
+// Ejecutar la aplicación
+FuelWebApplication.RunWebApplication(app);
