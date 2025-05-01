@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using AuthService.AuthService.Infrastructure;
 using AuthService.AuthService.Api.Middleware.AuthService.AuthService.Api.Middleware;
+using System.Text.Json;
 
 namespace AuthService.AuthService.Api.Config
 {
@@ -92,6 +93,15 @@ namespace AuthService.AuthService.Api.Config
 
                 options.Events = new JwtBearerEvents
                 {
+                    OnChallenge = async context =>
+                    {
+                        context.HandleResponse();
+                        context.Response.StatusCode = 401;
+                        context.Response.ContentType = "application/json";
+                        await context.Response.WriteAsync(
+                            JsonSerializer.Serialize(new { message = "No autorizado" })
+                        );
+                    },
                     OnMessageReceived = context =>
                     {
                         context.Token = context.Request.Cookies["access_token"];
