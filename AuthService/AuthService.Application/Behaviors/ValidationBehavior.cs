@@ -29,7 +29,7 @@ namespace AuthService.AuthService.Application.Behaviors
 
                 if (failures.Count != 0)
                 {
-                    throw new ValidationException(failures);
+                    throw new ValidationException($"Validation failed for request of type {typeof(TRequest).Name}", failures);
                 }
             }
             return await next();

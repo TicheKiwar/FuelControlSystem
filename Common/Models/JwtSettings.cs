@@ -5,15 +5,15 @@ namespace Common.Models
     public class JwtSettings
     {
         [JsonPropertyName("Key")]
-        public string Secret { get; set; } 
+        public string Key { get; set; } 
 
         [JsonPropertyName("Issuer")]
-        public string TokenIssuer { get; set; }
+        public string Issuer { get; set; }
 
         [JsonPropertyName("Audience")]
-        public string TokenAudience { get; set; }
+        public string Audience { get; set; }
 
         [JsonPropertyName("ExpiryInMinutes")]
-        public int ExpirationMinutes { get; set; }
+        public int ExpiryInMinutes { get; set; }
     }
 }
