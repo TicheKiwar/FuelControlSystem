@@ -47,9 +47,10 @@ namespace AuthService.AuthService.Infrastructure.Data.Repositories
             await _users.ReplaceOneAsync(u => u.Id == user.Id, user);
         }
 
-        public async Task DeleteAsync(string id)
+        public async Task<bool> DeleteAsync(string id)
         {
-            await _users.DeleteOneAsync(u => u.Id == id);
+            var result = await _users.DeleteOneAsync(u => u.Id == id);
+            return result.DeletedCount > 0;
         }
 
         public async Task<bool> CheckPasswordAsync(string userId, string password)
@@ -88,29 +89,9 @@ namespace AuthService.AuthService.Infrastructure.Data.Repositories
             await _users.UpdateOneAsync(u => u.Id == userId, update);
         }
 
-        public Task<User> GetByIdAsync(Guid id)
+        public async Task<IEnumerable<User>> GetAllAsync()
         {
-            throw new NotImplementedException();
-        }
-
-        public Task DeleteAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> CheckPasswordAsync(Guid userId, string password)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task AddRoleToUserAsync(Guid userId, UserRole role)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task RemoveRoleFromUserAsync(Guid userId, UserRole role)
-        {
-            throw new NotImplementedException();
+            return await _users.Find(_ => true).ToListAsync();
         }
     }
 }
