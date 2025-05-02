@@ -23,6 +23,7 @@ namespace AuthService.AuthService.Infrastructure
 
             // Registrar servicios
             services.AddScoped<IAuthService, AuthServiceImpl>();
+            services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddHostedService<DataInitializer>();
 
             // Configuración JWT
