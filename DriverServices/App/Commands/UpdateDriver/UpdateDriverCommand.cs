@@ -15,5 +15,7 @@ namespace DriverServices.App.Commands.UpdateDriver
         public bool IsActive { get; set; }
         public LicenseType License { get; set; } = default!;
         public VehicleType MachineryType { get; set; }
+
+        public decimal HourlyRate { get; set; }
     }
 }

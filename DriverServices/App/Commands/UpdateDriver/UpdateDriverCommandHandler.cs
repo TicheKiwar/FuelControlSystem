@@ -37,7 +37,8 @@ namespace DriverServices.App.Commands.UpdateDriver
                 IsAvailability = request.IsAvailability,
                 IsActive = request.IsActive,
                 License = request.License,
-                MachineryType = request.MachineryType
+                MachineryType = request.MachineryType,
+                HourlyRate = request.HourlyRate
             };
 
             await _repository.UpdateAsync(updatedDriver);

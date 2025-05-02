@@ -14,8 +14,9 @@ namespace DriverServices.App.Commands
         public bool IsActive { get; set; }
         public LicenseType License { get; set; }
         public VehicleType MachineryType { get; set; }
+        public decimal HourlyRate { get; set; }
 
-        public CreateDriverRegistrationCommand(string firstName, string lastName, string dni, string address, string phone, bool isAvailability, bool isActive, LicenseType license, VehicleType machineryType)
+        public CreateDriverRegistrationCommand(string firstName, string lastName, string dni, string address, string phone, bool isAvailability, bool isActive, LicenseType license, VehicleType machineryType, decimal hourlyRate)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -26,6 +27,7 @@ namespace DriverServices.App.Commands
             IsActive = isActive;
             License = license;
             MachineryType = machineryType;
+            HourlyRate = hourlyRate;
         }
     }
 }

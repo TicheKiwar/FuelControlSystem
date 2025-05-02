@@ -1,5 +1,6 @@
 using Common.Shared;
 using DriverServices.App.Commands;
+using DriverServices.App.Commands.UpdateDriver;
 using DriverServices.Infrastructure;
 
 
@@ -8,7 +9,10 @@ var app = Config.CreateWebApplication(
     {
         services.AddInfrastructure(configuration);
     },
-    applicationAssemblies: new[] { typeof(CreateDriverRegistrationHandler).Assembly }
+    applicationAssemblies: new[] { 
+        typeof(CreateDriverRegistrationHandler).Assembly,
+        typeof(UpdateDriverCommandHandler).Assembly,
+    }
 );
 
 Config.RunWebAplication(app);

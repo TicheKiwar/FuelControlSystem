@@ -3,9 +3,12 @@
 namespace Common.Shared.Enums
 {
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public enum VehicleType
+    public enum FuelType
     {
-        Liviana,
-        Pesada
+        Gasoline,     
+        Diesel,       
+        Electric,     
+        Hybrid,       
+        Ethanol
     }
 }
