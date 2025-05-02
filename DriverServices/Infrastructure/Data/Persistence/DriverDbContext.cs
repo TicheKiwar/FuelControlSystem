@@ -24,7 +24,6 @@ namespace DriverServices.Infrastructure.Data.Persistence
 
         private void EnsureIndexes()
         {
-            // Índices para la colección de drivers
             var driversCollection = GetCollection<Driver>("drivers");
 
             var dniIndex = new CreateIndexModel<Driver>(
@@ -33,7 +32,7 @@ namespace DriverServices.Infrastructure.Data.Persistence
 
             var licenseIndex = new CreateIndexModel<Driver>(
                 Builders<Driver>.IndexKeys.Ascending(d => d.License),
-                new CreateIndexOptions { Unique = false }); // Puedes poner Unique = true si aplica
+                new CreateIndexOptions { Unique = false }); 
 
             driversCollection.Indexes.CreateMany(new[] { dniIndex, licenseIndex });
         }

@@ -23,6 +23,9 @@ namespace DriverServices.Domain.Entities
         [BsonElement("address")]
         public required string Address { get; set; }
 
+        [BsonElement("hourlyRate")]
+        public required decimal HourlyRate { get; set; } // Ej: 15.50 (USD/hora o moneda local)
+
         [BsonElement("phone")]
         public required string Phone { get; set; }
 

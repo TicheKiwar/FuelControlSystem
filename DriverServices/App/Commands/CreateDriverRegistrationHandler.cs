@@ -24,7 +24,8 @@ namespace DriverServices.App.Commands
                 Phone = request.Phone,
                 IsActive = request.IsActive,
                 License = request.License,
-                MachineryType = request.MachineryType
+                MachineryType = request.MachineryType,
+                HourlyRate = request.HourlyRate
             };
 
 
