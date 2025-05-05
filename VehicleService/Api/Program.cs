@@ -2,6 +2,7 @@ using Common.Shared;
 using DriverServices.Infrastructure;
 using VehicleService.App.Commands.Create;
 using VehicleService.App.Commands.Update;
+using VehicleService.Infrastructure.Proto;
 
 
 var app = Config.CreateWebApplication(
@@ -14,5 +15,6 @@ var app = Config.CreateWebApplication(
             typeof(UpdateVehicleCommandHandler).Assembly
         }
     );
+app.MapGrpcService<VehicleGrpcService>();
 
 Config.RunWebAplication(app);
