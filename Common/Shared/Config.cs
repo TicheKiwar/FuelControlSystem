@@ -22,6 +22,7 @@ namespace Common.Shared
             builder.Configuration.AddJsonFile("./Api/appsettings.json", optional: false, reloadOnChange: true);
 
             builder.Services.AddControllers();
+            builder.Services.AddGrpc();
             ConfigureSwagger(builder);
             ConfigureLayers(builder, configureInfrastructure, applicationAssemblies);
             ConfigureAuthentication(builder);
@@ -42,7 +43,7 @@ namespace Common.Shared
             }
 
             app.UseHttpsRedirection();
-            app.UseMiddleware<JwtMiddleware>(); // Asegúrate de tener esta clase implementada
+            app.UseMiddleware<JwtMiddleware>(); 
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();

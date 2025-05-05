@@ -8,6 +8,7 @@ using System.Text;
 using AuthService.AuthService.Infrastructure;
 using AuthService.AuthService.Api.Middleware.AuthService.AuthService.Api.Middleware;
 using System.Text.Json;
+using AuthService.AuthService.Infrastructure.Services.Proto;
 
 namespace AuthService.AuthService.Api.Config
 {
@@ -21,6 +22,7 @@ namespace AuthService.AuthService.Api.Config
 
             // Configuración base
             builder.Services.AddControllers();
+            builder.Services.AddGrpc();
             ConfigureSwagger(builder);
             ConfigureLayers(builder);
             ConfigureAuthentication(builder);
@@ -42,7 +44,7 @@ namespace AuthService.AuthService.Api.Config
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.MapGrpcService<UserGrpcService>();
             app.UseHttpsRedirection();
             app.UseMiddleware<JwtMiddleware>();
             app.UseAuthentication();

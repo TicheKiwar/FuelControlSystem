@@ -54,7 +54,7 @@ namespace DriverServices.Api.Controller
             var result = await _mediator.Send(command);
             if (result.Success)
             {
-                return CreatedAtAction(nameof(GetDriverById), new { id = result.Id }, result);
+                return CreatedAtAction(nameof(GetDriverById), new { data = result }, result);
             }
             return BadRequest("Failed to create driver.");
         }
