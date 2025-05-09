@@ -16,6 +16,7 @@ namespace VehicleService.Domain.Interfaces.Repositories
         Task AddAsync(Vehicle vehicle);
 
         Task UpdateAsync(Vehicle vehicle);
+        Task UpdateIsUnderMaintenance(string id, bool isUnderMaintenance);
 
         Task DeleteAsync(string id);
 

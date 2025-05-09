@@ -25,7 +25,11 @@ namespace VehicleService.App.Commands.Create
                     FuelType = request.FuelType,
                     FuelEfficiency = request.FuelEfficiency,
                     Brand = request.Brand,
-                    Model = request.Model
+                    Model = request.Model,
+                    AcquisitionDate = request.AcquisitionDate,
+                    PurchasePrice = request.PurchasePrice,
+                    DocumentNumber = request.DocumentNumber,
+                    IsUnderMaintenance = request.IsUnderMaintenance,
                 };
 
                 await _vehicleRepository.AddAsync(vehicle);

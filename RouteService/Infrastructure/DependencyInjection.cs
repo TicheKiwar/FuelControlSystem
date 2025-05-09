@@ -4,9 +4,11 @@ using Common.Shared.Settings;
 using MediatR;
 using RouteService.App.Behavior;
 using RouteService.App.Commands.Trips;
+using RouteService.App.Interface;
 using RouteService.Domain.Entities;
 using RouteService.Domain.Interfaces.Repositories;
 using RouteService.Infrastructure.Data;
+using RouteService.Infrastructure.Proto.Client;
 using RouteService.Infrastructure.Services;
 
 namespace DriverServices.Infrastructure
@@ -28,6 +30,8 @@ namespace DriverServices.Infrastructure
 
             services.Configure<JwtSettings>(configuration.GetSection("Jwt"));
             services.AddScoped<ITripRepository, TripService>();
+            services.AddScoped<IDriverGrpcClient, DriverGrpcClient>();
+            services.AddScoped<IVehicleClient, VehicleClient>();
             services.AddScoped<IRouteRepository, RouteServiceImp>();
 
 

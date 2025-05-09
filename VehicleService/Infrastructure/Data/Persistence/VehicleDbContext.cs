@@ -17,7 +17,7 @@ namespace VehicleService.Infrastructure.Data.Persistence
         }
 
         public IMongoCollection<Vehicle> Vehicles => _database.GetCollection<Vehicle>("vehicles");
-
+        public IMongoCollection<VehicleMaintenance> VehicleMaintenances => _database.GetCollection<VehicleMaintenance>("VehicleMaintenances");
         private void EnsureIndexes()
         {
             var vehiclesCollection = Vehicles;

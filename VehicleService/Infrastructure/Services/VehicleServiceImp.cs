@@ -84,5 +84,10 @@ namespace VehicleService.Infrastructure.Services
         {
             await _context.Vehicles.ReplaceOneAsync(v => v.Id == vehicle.Id, vehicle);
         }
+
+        public Task UpdateIsUnderMaintenance(string id, bool isUnderMaintenance)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
