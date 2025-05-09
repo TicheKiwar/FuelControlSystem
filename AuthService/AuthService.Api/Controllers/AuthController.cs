@@ -27,20 +27,6 @@ namespace AuthService.AuthService.Api.Controllers
             return Ok(result);
         }
 
-        //[HttpPost("register")]
-        //[Authorize(Roles = RoleConstants.Admin)] // Solo administradores pueden registrar usuarios
-        //public async Task<IActionResult> Register([FromBody] RegisterCommand command)
-        //{
-        //    var userId = await _mediator.Send(command);
-        //    return CreatedAtAction(nameof(Login), new { id = userId });
-        //}
-
-        //[HttpPost("refresh-token")]
-        //public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenCommand command)
-        //{
-        //    var result = await _mediator.Send(command);
-        //    return Ok(result);
-        //}
 
         [HttpGet("me")]
         [Authorize]

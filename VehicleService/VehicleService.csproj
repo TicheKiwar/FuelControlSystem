@@ -27,5 +27,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App\Behavior\" />
+  </ItemGroup>
 
 </Project>

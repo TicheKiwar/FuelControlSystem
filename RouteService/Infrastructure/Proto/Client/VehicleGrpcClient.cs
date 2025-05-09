@@ -2,9 +2,9 @@
 using Grpc.Net.Client;
 using MyApp.Grpc;
 using RouteService.App.Interface;
-using static RouteService.Domain.Proto.Client.VehicleClient;
+using static RouteService.Infrastructure.Proto.Client.VehicleClient;
 
-namespace RouteService.Domain.Proto.Client
+namespace RouteService.Infrastructure.Proto.Client
 {
         public class VehicleClient : IVehicleClient, IDisposable
         {

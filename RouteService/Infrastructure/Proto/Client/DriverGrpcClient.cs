@@ -1,13 +1,13 @@
 ﻿
-    using System;
-    using System.Threading.Tasks;
-    using Grpc.Net.Client;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.Logging;
-    using MyApp.Grpc;
+using System;
+using System.Threading.Tasks;
+using Grpc.Net.Client;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using MyApp.Grpc;
 using RouteService.App.Interface;
 
-namespace RouteService.Domain.Proto.Client
+namespace RouteService.Infrastructure.Proto.Client
     {
         public class DriverGrpcClient : IDriverGrpcClient, IDisposable
         {
