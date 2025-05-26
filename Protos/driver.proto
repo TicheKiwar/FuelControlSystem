@@ -17,5 +17,5 @@ message DriverResponse {
   string id = 1;
   string firstName = 2;
   string lastName = 3;
-  
+  string hourlyRate = 4;
 }

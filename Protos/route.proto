@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package route;
+
+option csharp_namespace = "MyApp.Grpc.Route";
+
+enum DifficultyLevel {
+    EASY = 0;
+    MEDIUM = 1;
+    HARD = 2;
+}
+
+message Location {
+    string id = 1; 
+    string name = 2;
+    double latitude = 3;
+    double longitude = 4;
+}
+
+message RouteEntity {
+    string id = 1;
+    string name = 2;
+    Location origin = 3;
+    Location destination = 4;
+    double distance = 5;
+    double estimated_duration = 6;
+    DifficultyLevel difficulty_level = 7;
+    bool is_active = 8;
+    repeated Location waypoints = 10;
+}
+
+// --- Mensajes para las solicitudes y respuestas ---
+
+// Para obtener una ruta por id
+message GetRouteRequest {
+    string id = 1;
+}
+
+message GetRouteResponse {
+    RouteEntity route = 1;
+}
+
+// Para listar rutas con filtros opcionales
+message ListRoutesRequest {
+    // Filtros opcionales
+    DifficultyLevel difficulty_level = 1;
+    bool is_active = 2;
+    string origin_name = 3;      // por ejemplo filtrar por nombre de origen
+    string destination_name = 4; // filtrar por nombre de destino
+}
+
+// Respuesta con lista de rutas
+message ListRoutesResponse {
+    repeated RouteEntity routes = 1;
+}
+
+// --- Servicio ---
+
+service RouteService {
+    rpc GetRoute(GetRouteRequest) returns (GetRouteResponse);
+    rpc ListRoutes(ListRoutesRequest) returns (ListRoutesResponse);
+}

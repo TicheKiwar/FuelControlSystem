@@ -8,6 +8,9 @@ package vehicle;
 message VehicleResponse {
   string id = 1;
   string plateNumber = 2;
+  string fuelEfficiency = 3;
+  string averageFuelEfficiency = 4;
+  bool isUnderMaintenance = 5;
 
 }
 

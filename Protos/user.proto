@@ -1,20 +1,30 @@
 syntax = "proto3";
 
-option csharp_namespace = "MyApp.Grpc";
+package route;
 
-package user;
+option csharp_namespace = "MyApp.Grpc.Route";
 
-service UserService {
-  rpc GetUser (GetUserRequest) returns (UserResponse);
+enum DifficultyLevel {
+    EASY = 0;
+    MEDIUM = 1;
+    HARD = 2;
 }
 
-message GetUserRequest {
-  string id = 1;
+message Location {
+    string id = 1; 
+    string name = 2;
+    double latitude = 3;
+    double longitude = 4;
 }
 
-message UserResponse {
-  string id = 1;
-  string username = 2;
-  string email = 3;
-  repeated string roles = 4;
+message RouteEntity {
+    string id = 1;
+    string name = 2;
+    Location origin = 3;
+    Location destination = 4;
+    double distance = 5;
+    double estimated_duration = 6;
+    DifficultyLevel difficulty_level = 7;
+    bool is_active = 8;
+    repeated Location waypoints = 10;
 }

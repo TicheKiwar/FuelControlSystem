@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package route;
+
+option csharp_namespace = "MyApp.Grpc.Route";
+
+// Enum para TripStatus
+enum TripStatus {
+    SCHEDULED = 0;
+    IN_PROGRESS = 1;
+    COMPLETED = 2;
+    CANCELLED = 3;
+}
+
+// Mensaje Trip
+message Trip {
+    string id = 1;
+    string driver_id = 2;
+    string vehicle_id = 3;
+    string route_id = 4;
+    string start_time = 5;
+    string end_time = 6;
+    double expected_fuel_consumed = 7;
+    double actual_fuel_consumed = 8;
+    string total_cost = 9;
+    TripStatus status = 10;
+    bool is_emergency = 11;
+}
+
+// Solicitud para obtener un trip por id
+message GetTripRequest {
+    string id = 1;
+}
+
+// Respuesta con un solo Trip
+message TripResponse {
+    Trip trip = 1;
+}
+
+// Solicitud para listar trips (puedes agregar filtros luego)
+message ListTripsRequest {
+    // Filtros opcionales:
+    string driver_id = 1;           // Filtra por conductor
+    string vehicle_id = 2;          // Filtra por vehículo
+    string route_id = 3;            // Filtra por ruta
+    TripStatus status = 4;          // Filtra por estado del viaje
+    bool is_emergency = 5;          // Filtra por emergencia (true/false)
+
+    // Puedes agregar un rango de fechas también, usando strings o Timestamp (recomiendo ISO8601 string)
+    string start_time_from = 6;     // Fecha/hora inicial mínima (opcional)
+    string start_time_to = 7;       // Fecha/hora inicial máxima (opcional)
+}
+
+// Respuesta con lista de trips
+message ListTripsResponse {
+    repeated Trip trips = 1;
+}
+
+// Servicio TripService
+service TripService {
+    rpc GetTrip(GetTripRequest) returns (TripResponse);
+    rpc ListTrips(ListTripsRequest) returns (ListTripsResponse);
+    }
