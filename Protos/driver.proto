@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option csharp_namespace = "MyApp.Grpc";
+
+package driver;
+
+
+service DriverService {
+  rpc GetDriver (GetDriverRequest) returns (DriverResponse);
+}
+
+message GetDriverRequest {
+  string id = 1;
+}
+
+message DriverResponse {
+  string id = 1;
+  string firstName = 2;
+  string lastName = 3;
+  
+}

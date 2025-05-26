@@ -16,7 +16,10 @@ namespace DriverServices.App.Commands
         public VehicleType MachineryType { get; set; }
         public decimal HourlyRate { get; set; }
 
-        public CreateDriverRegistrationCommand(string firstName, string lastName, string dni, string address, string phone, bool isAvailability, bool isActive, LicenseType license, VehicleType machineryType, decimal hourlyRate)
+        // Nueva propiedad UserId para la relación con el usuario
+        public string UserId { get; set; }
+
+        public CreateDriverRegistrationCommand(string firstName, string lastName, string dni, string address, string phone, bool isAvailability, bool isActive, LicenseType license, VehicleType machineryType, decimal hourlyRate, string userId)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -28,6 +31,7 @@ namespace DriverServices.App.Commands
             License = license;
             MachineryType = machineryType;
             HourlyRate = hourlyRate;
+            UserId = userId; // Inicializa el UserId
         }
     }
 }

@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option csharp_namespace = "MyApp.Grpc";
+
+package vehicle;
+
+
+message VehicleResponse {
+  string id = 1;
+  string plateNumber = 2;
+
+}
+
+service VehicleService {
+  rpc GetVehicle (GetVehicleRequest) returns (VehicleResponse);
+}
+
+message GetVehicleRequest {
+  string id = 1;
+}

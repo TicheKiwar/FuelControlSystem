@@ -22,10 +22,26 @@ namespace VehicleService.Domain.Entities
         [BsonElement("fuelEfficiency")]
         public double FuelEfficiency { get; set; } // Consumo en km/L o km/kWh
 
+        [BsonElement("averageFuelEfficiency")]
+        public double AverageFuelEfficiency { get; set; } // Promedio Consumo en km/L o km/kWh
+
         [BsonElement("brand")]
         public required string Brand { get; set; } // Ej: "Toyota"
 
         [BsonElement("model")]
         public required string Model { get; set; }
+
+        [BsonElement("acquisitionDate")]
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+        public DateTime AcquisitionDate { get; set; }
+
+        [BsonElement("purchasePrice")]
+        public decimal PurchasePrice { get; set; }
+
+        [BsonElement("documentNumber")]
+        public required string DocumentNumber { get; set; }
+
+        [BsonElement("isUnderMaintenance")]
+        public bool IsUnderMaintenance { get; set; }
     }
 }
