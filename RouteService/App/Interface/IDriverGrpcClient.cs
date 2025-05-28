@@ -2,7 +2,7 @@
 
 namespace RouteService.App.Interface
 {
-    public interface IDriverGrpcClient
+    public interface IDriverGrpcClient : IDisposable
     {
         Task<DriverDto> GetDriverAsync(string driverId);
     }
