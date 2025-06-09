@@ -28,6 +28,7 @@ namespace DriverServices.Infrastructure.Services.Proto
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                HourlyRate =  user.HourlyRate.ToString(),
             };
 
             return driverResponse;

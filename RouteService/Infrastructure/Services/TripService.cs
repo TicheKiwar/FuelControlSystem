@@ -1,5 +1,6 @@
 ﻿using Common.Shared.Enums;
 using MongoDB.Driver;
+using RouteService.App.Dto;
 using RouteService.Domain.Entities;
 using RouteService.Domain.Interfaces.Repositories;
 using RouteService.Infrastructure.Data;
@@ -51,6 +52,38 @@ namespace RouteService.Infrastructure.Services
 
             return await _tripCollection.Find(filter).AnyAsync();
         }
+
+        public async Task<IEnumerable<Trip>> ListAsync(TripFilterDto filter)
+        {
+            var builder = Builders<Trip>.Filter;
+            var filterList = new List<FilterDefinition<Trip>>();
+
+            if (!string.IsNullOrEmpty(filter.DriverId))
+                filterList.Add(builder.Eq(t => t.DriverId, filter.DriverId));
+
+            if (!string.IsNullOrEmpty(filter.VehicleId))
+                filterList.Add(builder.Eq(t => t.VehicleId, filter.VehicleId));
+
+            if (!string.IsNullOrEmpty(filter.RouteId))
+                filterList.Add(builder.Eq(t => t.RouteId, filter.RouteId));
+
+            if (filter.Status.HasValue)
+                filterList.Add(builder.Eq(t => t.Status, filter.Status.Value));
+
+            if (filter.IsEmergency.HasValue)
+                filterList.Add(builder.Eq(t => t.IsEmergency, filter.IsEmergency.Value));
+
+            if (filter.StartTimeFrom.HasValue)
+                filterList.Add(builder.Gte(t => t.StartTime, filter.StartTimeFrom.Value));
+
+            if (filter.StartTimeTo.HasValue)
+                filterList.Add(builder.Lte(t => t.StartTime, filter.StartTimeTo.Value));
+
+            var combinedFilter = filterList.Any() ? builder.And(filterList) : builder.Empty;
+
+            return await _tripCollection.Find(combinedFilter).ToListAsync();
+        }
+
 
         public async Task UpdateAsync(Trip trip)
         {

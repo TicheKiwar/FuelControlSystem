@@ -1,0 +1,4 @@
+{
+    "csharp.debug.logging.diagnosticsLog.debugRuntimeEventTracing": false,
+    "workbench.sideBar.location": "right"
+}

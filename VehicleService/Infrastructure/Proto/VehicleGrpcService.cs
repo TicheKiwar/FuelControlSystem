@@ -9,24 +9,27 @@ namespace VehicleService.Infrastructure.Proto
         private readonly IVehicleRepository _vehicleRepository;
 
 
-        public VehicleGrpcService(IVehicleRepository driverRepository)
+        public VehicleGrpcService(IVehicleRepository vehicleRepository)
         {
-            _vehicleRepository = driverRepository;
+            _vehicleRepository = vehicleRepository;
         }
         public override async Task<VehicleResponse> GetVehicle(GetVehicleRequest request, ServerCallContext context)
         {
 
-            var user = await _vehicleRepository.GetByIdAsync(request.Id);
+            var vehicle = await _vehicleRepository.GetByIdAsync(request.Id);
 
-            if (user == null)
+            if (vehicle == null)
             {
-                throw new RpcException(new Status(StatusCode.NotFound, "Driver not found"));
+                throw new RpcException(new Status(StatusCode.NotFound, "Vhicle not found"));
             }
 
             var vehicleResponse = new VehicleResponse
             {
-                Id = user.Id,
-                PlateNumber = user.PlateNumber
+                Id = vehicle.Id,
+                PlateNumber = vehicle.PlateNumber,
+                FuelEfficiency = vehicle.FuelEfficiency.ToString(),
+                AverageFuelEfficiency = vehicle.AverageFuelEfficiency.ToString(),
+                IsUnderMaintenance = vehicle.IsUnderMaintenance
             };
 
             return vehicleResponse;

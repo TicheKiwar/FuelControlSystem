@@ -26,7 +26,7 @@ namespace RouteService.Domain.Entities
 
         // Datos del viaje
         [BsonElement("startTime")]
-        public DateTime? StartTime { get; set; }
+        public required DateTime StartTime { get; set; }
 
         [BsonElement("endTime")]
         public DateTime? EndTime { get; set; }

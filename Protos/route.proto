@@ -4,32 +4,29 @@ package route;
 
 option csharp_namespace = "MyApp.Grpc.Route";
 
-enum DifficultyLevel {
+enum DifficultyLevelGrpc {
     EASY = 0;
     MEDIUM = 1;
     HARD = 2;
 }
 
-message Location {
-    string id = 1; 
-    string name = 2;
+message LocationGrpc {
+    string address = 2;
     double latitude = 3;
     double longitude = 4;
 }
 
-message RouteEntity {
+message RouteEntityGrpc {
     string id = 1;
     string name = 2;
-    Location origin = 3;
-    Location destination = 4;
+    LocationGrpc origin = 3;
+    LocationGrpc destination = 4;
     double distance = 5;
     double estimated_duration = 6;
-    DifficultyLevel difficulty_level = 7;
+    DifficultyLevelGrpc difficulty_level = 7;
     bool is_active = 8;
-    repeated Location waypoints = 10;
+    repeated LocationGrpc waypoints = 10;
 }
-
-// --- Mensajes para las solicitudes y respuestas ---
 
 // Para obtener una ruta por id
 message GetRouteRequest {
@@ -37,26 +34,24 @@ message GetRouteRequest {
 }
 
 message GetRouteResponse {
-    RouteEntity route = 1;
+    RouteEntityGrpc route = 1;
 }
 
 // Para listar rutas con filtros opcionales
 message ListRoutesRequest {
-    // Filtros opcionales
-    DifficultyLevel difficulty_level = 1;
+    DifficultyLevelGrpc difficulty_level = 1;
     bool is_active = 2;
-    string origin_name = 3;      // por ejemplo filtrar por nombre de origen
-    string destination_name = 4; // filtrar por nombre de destino
+    string origin_name = 3;
+    string destination_name = 4;
 }
 
 // Respuesta con lista de rutas
 message ListRoutesResponse {
-    repeated RouteEntity routes = 1;
+    repeated RouteEntityGrpc routes = 1;
 }
 
 // --- Servicio ---
-
-service RouteService {
+service RouteServiceGrpc {
     rpc GetRoute(GetRouteRequest) returns (GetRouteResponse);
     rpc ListRoutes(ListRoutesRequest) returns (ListRoutesResponse);
 }

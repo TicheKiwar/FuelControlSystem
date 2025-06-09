@@ -1,6 +1,7 @@
 ﻿using Common.Shared.Constants;
 using MongoDB.Driver;
 using RouteService.Domain.Entities;
+using RouteService.Domain.Filters;
 using RouteService.Domain.Interfaces.Repositories;
 using RouteService.Infrastructure.Data;
 
@@ -51,6 +52,37 @@ namespace RouteService.Infrastructure.Services
 
             return await _routeCollection.Find(filter).ToListAsync();
         }
+
+        public async Task<IEnumerable<RouteEntity>> ListAsync(RouteFilter filter)
+        {
+            var filters = new List<FilterDefinition<RouteEntity>>();
+            var builder = Builders<RouteEntity>.Filter;
+
+            if (filter.DifficultyLevel.HasValue)
+            {
+                filters.Add(builder.Eq(r => r.DifficultyLevel, filter.DifficultyLevel.Value));
+            }
+
+            if (filter.IsActive.HasValue)
+            {
+                filters.Add(builder.Eq(r => r.IsActive, filter.IsActive.Value));
+            }
+
+            if (!string.IsNullOrWhiteSpace(filter.OriginName))
+            {
+                filters.Add(builder.Eq(r => r.Origin.Address, filter.OriginName));
+            }
+
+            if (!string.IsNullOrWhiteSpace(filter.DestinationName))
+            {
+                filters.Add(builder.Eq(r => r.Destination.Address, filter.DestinationName));
+            }
+
+            var finalFilter = filters.Any() ? builder.And(filters) : builder.Empty;
+
+            return await _routeCollection.Find(finalFilter).ToListAsync();
+        }
+
 
         public async Task UpdateAsync(RouteEntity route)
         {

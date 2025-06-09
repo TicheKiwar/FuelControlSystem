@@ -43,7 +43,7 @@ namespace Common.Shared
             }
 
             app.UseHttpsRedirection();
-            app.UseMiddleware<JwtMiddleware>(); 
+            app.UseMiddleware<JwtMiddleware>();
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();

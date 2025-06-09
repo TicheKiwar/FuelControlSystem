@@ -1,3 +1,4 @@
+namespace RouteService.App.Dto;
 public class DriverDto
 {
     public string Id { get; set; }

@@ -1,6 +1,7 @@
 ﻿using Grpc.Core;
 using Grpc.Net.Client;
 using MyApp.Grpc;
+using RouteService.App.Dto;
 using RouteService.App.Interface;
 using static RouteService.Infrastructure.Proto.Client.VehicleClient;
 

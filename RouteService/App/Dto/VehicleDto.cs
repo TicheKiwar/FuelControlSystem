@@ -1,4 +1,4 @@
-
+namespace RouteService.App.Dto;
 public class VehicleDto
 {
     public string Id { get; set; }

@@ -24,7 +24,7 @@ namespace DriverServices.Infrastructure
             services.AddTransient<IPipelineBehavior<CreateDriverRegistrationCommand, CreateDriverRegistrationResult>, CheckIfUserAlreadyAssignedBehavior>();
 
             services.AddScoped<IDriverRepository, DriverService>();
-
+                
 
             return services;
         }

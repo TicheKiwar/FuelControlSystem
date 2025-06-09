@@ -27,7 +27,7 @@
 	  
   </ItemGroup>
 	<ItemGroup>
-		  <Protobuf Include="..\Protos\user.proto" GrpcServices="Both" />
+		  <Protobuf Include="..\Protos\user.proto" GrpcServices="Server" />
 	</ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
