@@ -27,6 +27,8 @@ namespace VehicleService.App.Commands.Create
                     Brand = request.Brand,
                     Model = request.Model,
                     AcquisitionDate = request.AcquisitionDate,
+                    AverageFuelEfficiency = request.AverageFuelEfficiency,
+                    AverageSpeedKmPerHour = request.AverageSpeedKmPerHour,
                     PurchasePrice = request.PurchasePrice,
                     DocumentNumber = request.DocumentNumber,
                     IsUnderMaintenance = request.IsUnderMaintenance,

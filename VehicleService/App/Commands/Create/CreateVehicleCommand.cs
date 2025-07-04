@@ -18,6 +18,7 @@ namespace VehicleService.App.Commands.Create
         public decimal PurchasePrice { get; set; }
         public string DocumentNumber { get; set; }
         public bool IsUnderMaintenance { get; set; }
+        public double AverageSpeedKmPerHour { get; set; }
 
         public CreateVehicleCommand(
             string plateNumber,
@@ -30,6 +31,7 @@ namespace VehicleService.App.Commands.Create
             DateTime acquisitionDate,
             decimal purchasePrice,
             string documentNumber,
+            double averageSpeedKmPerHour,
             bool isUnderMaintenance)
         {
             PlateNumber = plateNumber;
@@ -37,6 +39,7 @@ namespace VehicleService.App.Commands.Create
             FuelType = fuelType;
             FuelEfficiency = fuelEfficiency;
             AverageFuelEfficiency = averageFuelEfficiency;
+            AverageSpeedKmPerHour = averageSpeedKmPerHour;
             Brand = brand;
             Model = model;
             AcquisitionDate = acquisitionDate;

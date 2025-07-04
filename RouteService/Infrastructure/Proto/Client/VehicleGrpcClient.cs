@@ -40,8 +40,8 @@ namespace RouteService.Infrastructure.Proto.Client
                 {
                     Id = response.Id,
                     PlateNumber = response.PlateNumber,
-                    FuelEfficiency = double.Parse(response.FuelEfficiency),
-                    AverageFuelEfficiency = double.Parse(response.AverageFuelEfficiency),
+                    AverageSpeedKmPerHour = response.AverageSpeedKmPerHour,
+                    AverageFuelEfficiency = response.AverageFuelEfficiency,
                     IsUnderMaintenance = response.IsUnderMaintenance
 
                 };

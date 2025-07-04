@@ -26,7 +26,6 @@ namespace RouteService.App.Commands.Routes
                 route.Origin = request.Origin;
                 route.Destination = request.Destination;
                 route.Distance = request.Distance;
-                route.EstimatedDuration = request.EstimatedDuration;
                 route.DifficultyLevel = request.DifficultyLevel;
                 route.IsActive = request.IsActive;
                 route.Waypoints = request.Waypoints;

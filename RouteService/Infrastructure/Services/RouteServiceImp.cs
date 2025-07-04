@@ -1,9 +1,12 @@
-﻿using Common.Shared.Constants;
+﻿using Common.Shared.App;
+using Common.Shared.Constants;
 using MongoDB.Driver;
+using RouteService.App.Interface;
 using RouteService.Domain.Entities;
 using RouteService.Domain.Filters;
 using RouteService.Domain.Interfaces.Repositories;
 using RouteService.Infrastructure.Data;
+using RouteService.Infrastructure.Proto.Client;
 
 namespace RouteService.Infrastructure.Services
 {
@@ -18,6 +21,7 @@ namespace RouteService.Infrastructure.Services
 
         public async Task AddAsync(RouteEntity route)
         {
+
             await _routeCollection.InsertOneAsync(route);
         }
 

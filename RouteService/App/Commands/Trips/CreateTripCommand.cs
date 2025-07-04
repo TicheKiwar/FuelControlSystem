@@ -16,7 +16,7 @@ namespace RouteService.App.Commands.Trips
         public double ExpectedFuelConsumed { get; set; }
         public decimal? TotalCost { get; set; }
         public TripStatus Status { get; set; }
-        public bool IsEmergency { get; set; }
+        public bool IsEmergency { get; set; } = false;
 
         public CreateTripCommand(
             string driverId,

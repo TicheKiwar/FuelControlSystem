@@ -12,7 +12,6 @@ namespace RouteService.App.Commands.Routes
         public Location Origin { get; set; }
         public Location Destination { get; set; }
         public double Distance { get; set; }
-        public double EstimatedDuration { get; set; }
         public DifficultyLevel DifficultyLevel { get; set; }
         public bool IsActive { get; set; }
         public List<Location> Waypoints { get; set; }
@@ -22,7 +21,6 @@ namespace RouteService.App.Commands.Routes
             Location origin,
             Location destination,
             double distance,
-            double estimatedDuration,
             DifficultyLevel difficultyLevel,
             bool isActive,
             List<Location> waypoints)
@@ -31,7 +29,6 @@ namespace RouteService.App.Commands.Routes
             Origin = origin;
             Destination = destination;
             Distance = distance;
-            EstimatedDuration = estimatedDuration;
             DifficultyLevel = difficultyLevel;
             IsActive = isActive;
             Waypoints = waypoints ?? new List<Location>();

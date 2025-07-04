@@ -4,14 +4,12 @@ option csharp_namespace = "MyApp.Grpc";
 
 package vehicle;
 
-
 message VehicleResponse {
   string id = 1;
   string plateNumber = 2;
-  string fuelEfficiency = 3;
-  string averageFuelEfficiency = 4;
-  bool isUnderMaintenance = 5;
-
+  double averageFuelEfficiency = 3;   // Changed from string to double
+  double averageSpeedKmPerHour = 4;   // New field (double for precision)
+  bool isUnderMaintenance = 5;        // Field number updated
 }
 
 service VehicleService {

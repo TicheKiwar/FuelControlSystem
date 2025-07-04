@@ -27,8 +27,8 @@ namespace VehicleService.Infrastructure.Proto
             {
                 Id = vehicle.Id,
                 PlateNumber = vehicle.PlateNumber,
-                FuelEfficiency = vehicle.FuelEfficiency.ToString(),
-                AverageFuelEfficiency = vehicle.AverageFuelEfficiency.ToString(),
+                AverageSpeedKmPerHour = vehicle.AverageSpeedKmPerHour,
+                AverageFuelEfficiency = vehicle.AverageFuelEfficiency,
                 IsUnderMaintenance = vehicle.IsUnderMaintenance
             };
 

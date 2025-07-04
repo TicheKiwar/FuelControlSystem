@@ -1,6 +1,7 @@
 ﻿using Common.Shared.Enums;
 using MongoDB.Driver;
 using RouteService.App.Dto;
+using RouteService.App.Interface;
 using RouteService.Domain.Entities;
 using RouteService.Domain.Interfaces.Repositories;
 using RouteService.Infrastructure.Data;
@@ -11,14 +12,18 @@ namespace RouteService.Infrastructure.Services
     {
         private readonly IMongoCollection<Trip> _tripCollection;
 
-        public TripService(TripDbContext dbContext)
+        private readonly ITripEventPublisher _publisher;
+        public TripService(TripDbContext dbContext, ITripEventPublisher publisher)
         {
             _tripCollection = dbContext.GetCollection<Trip>("Trips");
+            _publisher = publisher ?? throw new ArgumentNullException(nameof(publisher));
         }
 
         public async Task AddAsync(Trip trip)
         {
             await _tripCollection.InsertOneAsync(trip);
+
+            await _publisher.PublishAsync("created", trip);
         }
 
         public async Task DeleteAsync(string id)
@@ -88,6 +93,8 @@ namespace RouteService.Infrastructure.Services
         public async Task UpdateAsync(Trip trip)
         {
             await _tripCollection.ReplaceOneAsync(t => t.Id == trip.Id, trip);
+
+            await _publisher.PublishAsync("updated", trip);
         }
     }
 

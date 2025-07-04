@@ -5,16 +5,17 @@ using VehicleService.Domain.Entities;
 
 namespace VehicleService.App.Commands.Update
 {
-        public class UpdateVehicleCommand : IRequest<MessageResponse<Vehicle>>
-        {
-            public string Id { get; set; }
-            public string PlateNumber { get; set; }
-            public VehicleType Type { get; set; }
-            public FuelType FuelType { get; set; }
-            public double FuelEfficiency { get; set; }
+    public class UpdateVehicleCommand : IRequest<MessageResponse<Vehicle>>
+    {
+        public string Id { get; set; }
+        public string PlateNumber { get; set; }
+        public VehicleType Type { get; set; }
+        public FuelType FuelType { get; set; }
+        public double FuelEfficiency { get; set; }
         public double AverageFuelEfficiency { get; set; }
+        public double AverageSpeedKmPerHour { get; set; }
         public string Brand { get; set; }
-            public string Model { get; set; }
+        public string Model { get; set; }
         public DateTime AcquisitionDate { get; set; }
         public decimal PurchasePrice { get; set; }
         public string DocumentNumber { get; set; }
@@ -28,6 +29,7 @@ namespace VehicleService.App.Commands.Update
                 FuelType fuelType,
                 double fuelEfficiency,
                 double averageFuelEfficiency,
+                double averageSpeedKmPerHour,
                 string brand,
                 string model,
             DateTime acquisitionDate,
@@ -35,20 +37,21 @@ namespace VehicleService.App.Commands.Update
             string documentNumber,
             bool isUnderMaintenance
             )
-            {
-                Id = id;
-                PlateNumber = plateNumber;
-                Type = type;
-                FuelType = fuelType;
-                FuelEfficiency = fuelEfficiency;
+        {
+            Id = id;
+            PlateNumber = plateNumber;
+            Type = type;
+            FuelType = fuelType;
+            FuelEfficiency = fuelEfficiency;
             AverageFuelEfficiency = averageFuelEfficiency;
+            AverageSpeedKmPerHour = averageSpeedKmPerHour;
             Brand = brand;
-                Model = model;
+            Model = model;
             AcquisitionDate = acquisitionDate;
             PurchasePrice = purchasePrice;
             DocumentNumber = documentNumber;
             IsUnderMaintenance = isUnderMaintenance;
         }
-        }
     }
+}
 
