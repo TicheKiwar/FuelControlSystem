@@ -30,6 +30,15 @@ namespace Common.Shared
 
             additionalConfiguration?.Invoke(builder);
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                    policy.AllowAnyOrigin()
+                          .AllowAnyHeader()
+                          .AllowAnyMethod());
+            });
+
+
             return builder.Build();
         }
 
@@ -43,6 +52,7 @@ namespace Common.Shared
             }
 
             app.UseHttpsRedirection();
+            app.UseCors("AllowAll");
             app.UseMiddleware<JwtMiddleware>();
             app.UseAuthentication();
             app.UseAuthorization();

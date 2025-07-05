@@ -25,6 +25,7 @@ namespace AuthService.AuthService.Api.Config
             builder.Services.AddGrpc();
             ConfigureSwagger(builder);
             ConfigureLayers(builder);
+            ConfigureCors(builder);
             ConfigureAuthentication(builder);
             ConfigureAuthorization(builder);
 
@@ -47,6 +48,7 @@ namespace AuthService.AuthService.Api.Config
             app.MapGrpcService<UserGrpcService>();
             app.UseHttpsRedirection();
             app.UseMiddleware<JwtMiddleware>();
+            app.UseCors("AllowFrontend");
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
@@ -151,5 +153,21 @@ namespace AuthService.AuthService.Api.Config
             });
             });
         }
+
+        private static void ConfigureCors(WebApplicationBuilder builder)
+        {
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontend", policy =>
+                {
+                    policy
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials()
+                        .WithOrigins("http://localhost:4200");
+                });
+            });
+        }
+
     }
 }
