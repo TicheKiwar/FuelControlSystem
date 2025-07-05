@@ -1,9 +1,20 @@
+
+using System;
+using System.Text.Json.Serialization;
+using System.Runtime.Serialization;
 namespace FuelService.Domain.Entities;
 
 
-public class CalculationInputs
+/// <summary>
+/// Serializable class for calculation inputs
+/// </summary>
+ [Serializable]
+ public class CalculationInputs
 {
-    public VehicleInput Vehicle { get; set; }
-    public DriverInput Driver { get; set; }
-    public RouteInput Route { get; set; }
+    [JsonPropertyName("vehicle")]
+    public VehicleInput? Vehicle { get; set; }
+    [JsonPropertyName("driver")]
+    public DriverInput? Driver { get; set; }
+    [JsonPropertyName("route")]
+    public RouteInput? Route { get; set; }
 }

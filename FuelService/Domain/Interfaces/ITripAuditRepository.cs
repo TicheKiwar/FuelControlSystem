@@ -9,5 +9,7 @@ public interface ITripAuditRepository
     Task<TripAudit> GetByTripIdAsync(string tripId);
     Task<TripAudit[]> GetReportsAsync(string tripId, int skip = 0, int limit = 100);
     Task UpdateFinalResultAsync(string tripId, FinalResult finalResult);
+
+    
 }
 
