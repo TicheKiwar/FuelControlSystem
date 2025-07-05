@@ -24,6 +24,9 @@ namespace VehicleService.Domain.Entities
 
         [BsonElement("averageFuelEfficiency")]
         public double AverageFuelEfficiency { get; set; } // Promedio Consumo en km/L o km/kWh
+        
+        [BsonElement("averageSpeedKmPerHour")]
+        public double AverageSpeedKmPerHour { get; set; } = 60;
 
         [BsonElement("brand")]
         public required string Brand { get; set; } // Ej: "Toyota"

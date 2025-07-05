@@ -11,7 +11,7 @@ namespace RouteService.App.Commands.Trips
         public string DriverId { get; set; }
         public string VehicleId { get; set; }
         public string RouteId { get; set; }
-        public DateTime? StartTime { get; set; }
+        public DateTime StartTime { get; set; }
         public DateTime? EndTime { get; set; }
         public double? ActualFuelConsumed { get; set; }
         public decimal? TotalCost { get; set; }
@@ -23,7 +23,7 @@ namespace RouteService.App.Commands.Trips
             string driverId,
             string vehicleId,
             string routeId,
-            DateTime? startTime,
+            DateTime startTime,
             DateTime? endTime,
             double? actualFuelConsumed,
             decimal? totalCost,

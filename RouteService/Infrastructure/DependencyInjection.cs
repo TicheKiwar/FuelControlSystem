@@ -34,6 +34,7 @@ namespace DriverServices.Infrastructure
             services.AddScoped<IVehicleClient, VehicleClient>();
             services.AddScoped<IRouteRepository, RouteServiceImp>();
 
+            services.AddScoped<ITripEventPublisher, TripEventProducer>();
 
             return services;
         }

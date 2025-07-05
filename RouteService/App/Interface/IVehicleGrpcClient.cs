@@ -1,8 +1,8 @@
-﻿using RouteService.Infrastructure.Proto.Client;
+﻿using RouteService.App.Dto;
 
 namespace RouteService.App.Interface
 {
-    public interface IVehicleClient
+    public interface IVehicleClient : IDisposable
     {
         Task<VehicleDto> GetVehicleAsync(string vehicleId);
     }

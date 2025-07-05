@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AuthService.AuthService.Infrastructure.Services.Proto
 {
-    public class UserGrpcService : MyApp.Grpc.UserService.UserServiceBase
+    public class UserGrpcService : UserService.UserServiceBase
     {
         private readonly IUserRepository _userRepository;
 

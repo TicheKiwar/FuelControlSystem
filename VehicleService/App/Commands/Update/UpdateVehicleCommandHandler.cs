@@ -32,6 +32,8 @@ namespace VehicleService.App.Commands.Update
                 existingVehicle.Type = request.Type;
                 existingVehicle.FuelType = request.FuelType;
                 existingVehicle.FuelEfficiency = request.FuelEfficiency;
+                existingVehicle.AverageFuelEfficiency = request.AverageFuelEfficiency;
+                existingVehicle.AverageSpeedKmPerHour = request.AverageSpeedKmPerHour;
                 existingVehicle.Brand = request.Brand;
                 existingVehicle.Model = request.Model;
 

@@ -1,66 +1,65 @@
 ﻿using Grpc.Core;
 using Grpc.Net.Client;
 using MyApp.Grpc;
+using RouteService.App.Dto;
 using RouteService.App.Interface;
 using static RouteService.Infrastructure.Proto.Client.VehicleClient;
 
 namespace RouteService.Infrastructure.Proto.Client
 {
-        public class VehicleClient : IVehicleClient, IDisposable
+    public class VehicleClient : IVehicleClient, IDisposable
+    {
+        private readonly ILogger<VehicleClient> _logger;
+        private readonly IConfiguration _configuration;
+        private readonly GrpcChannel _channel;
+
+        public VehicleClient(ILogger<VehicleClient> logger, IConfiguration configuration)
         {
-            private readonly ILogger<VehicleClient> _logger;
-            private readonly IConfiguration _configuration;
-            private readonly GrpcChannel _channel;
+            _logger = logger;
+            _configuration = configuration;
 
-            public VehicleClient(ILogger<VehicleClient> logger, IConfiguration configuration)
+            var vehicleServiceUrl = _configuration.GetValue<string>("Services:VehicleService");
+            if (string.IsNullOrEmpty(vehicleServiceUrl))
             {
-                _logger = logger;
-                _configuration = configuration;
-
-                var vehicleServiceUrl = _configuration.GetValue<string>("Services:VehicleService");
-                if (string.IsNullOrEmpty(vehicleServiceUrl))
-                {
-                    throw new ArgumentException("La URL del servicio Vehicle no está configurada.");
-                }
-
-                _channel = GrpcChannel.ForAddress(vehicleServiceUrl);
+                throw new ArgumentException("La URL del servicio Vehicle no está configurada.");
             }
 
-            public async Task<VehicleDto> GetVehicleAsync(string vehicleId)
+            _channel = GrpcChannel.ForAddress(vehicleServiceUrl);
+        }
+
+        public async Task<VehicleDto> GetVehicleAsync(string vehicleId)
+        {
+            try
             {
-                try
+                _logger.LogInformation($"Solicitando datos del vehículo con ID: {vehicleId}");
+
+                var client = new VehicleService.VehicleServiceClient(_channel);
+                var response = await client.GetVehicleAsync(new GetVehicleRequest { Id = vehicleId });
+
+                var vehicleDto = new VehicleDto
                 {
-                    _logger.LogInformation($"Solicitando datos del vehículo con ID: {vehicleId}");
+                    Id = response.Id,
+                    PlateNumber = response.PlateNumber,
+                    AverageSpeedKmPerHour = response.AverageSpeedKmPerHour,
+                    AverageFuelEfficiency = response.AverageFuelEfficiency,
+                    IsUnderMaintenance = response.IsUnderMaintenance
 
-                    var client = new VehicleService.VehicleServiceClient(_channel);
-                    var response = await client.GetVehicleAsync(new GetVehicleRequest { Id = vehicleId });
+                };
 
-                    var vehicleDto = new VehicleDto
-                    {
-                        Id = response.Id,
-                        PlateNumber = response.PlateNumber
-                    };
-
-                    _logger.LogInformation($"Datos del vehículo obtenidos correctamente para el ID: {vehicleId}");
-                    return vehicleDto;
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, $"Error al obtener datos del vehículo con ID: {vehicleId}");
-                    throw;
-                }
+                _logger.LogInformation($"Datos del vehículo obtenidos correctamente para el ID: {vehicleId}");
+                return vehicleDto;
             }
-
-            public void Dispose()
+            catch (Exception ex)
             {
-                _channel?.Dispose();
+                _logger.LogError(ex, $"Error al obtener datos del vehículo con ID: {vehicleId}");
+                throw;
             }
         }
 
-        public class VehicleDto
+        public void Dispose()
         {
-            public string Id { get; set; }
-            public string PlateNumber { get; set; }
+            _channel?.Dispose();
         }
-    
+    }
+
 }

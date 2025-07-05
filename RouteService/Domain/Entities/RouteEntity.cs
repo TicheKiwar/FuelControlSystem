@@ -23,9 +23,6 @@ namespace RouteService.Domain.Entities
         [BsonElement("distance")]
         public double Distance { get; set; } // Distancia en kilómetros
 
-        [BsonElement("estimatedDuration")]
-        public double EstimatedDuration { get; set; } // Duración estimada en horas
-
         [BsonElement("difficultyLevel")]
         public DifficultyLevel DifficultyLevel { get; set; } // Fácil, Medio, Difícil
 

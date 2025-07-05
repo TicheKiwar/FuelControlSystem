@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package trip;
+
+option csharp_namespace = "MyApp.Grpc.trip";
+
+// Enum para TripStatus (versión gRPC)
+enum TripStatusGrpc {
+    UNSPECIFIED = 0;
+    SCHEDULED = 1;
+    IN_PROGRESS = 2;
+    COMPLETED = 3;
+    CANCELLED = 4;
+    DELAYED = 5;
+}
+
+// Mensaje Trip
+message Trip {
+    string id = 1;
+    string driver_id = 2;
+    string vehicle_id = 3;
+    string route_id = 4;    
+    string start_time = 5;
+    string end_time = 6;
+    double expected_fuel_consumed = 7;
+    double actual_fuel_consumed = 8;
+    string total_cost = 9;
+    TripStatusGrpc status = 10;         // Aquí se usa el enum correcto
+    bool is_emergency = 11;
+}
+
+// Solicitud para obtener un trip por id
+message GetTripRequest {
+    string id = 1;
+}
+
+// Respuesta con un solo Trip
+message TripResponse {
+    Trip trip = 1;
+}
+
+// Solicitud para listar trips (con filtros opcionales)
+message ListTripsRequest {
+    string driver_id = 1;
+    string vehicle_id = 2;
+    string route_id = 3;
+    TripStatusGrpc status = 4;          // Enum correcto aquí también
+    bool is_emergency = 5;
+
+    string start_time_from = 6;
+    string start_time_to = 7;
+}
+
+// Respuesta con lista de trips
+message ListTripsResponse {
+    repeated Trip trips = 1;
+}
+
+// Servicio TripService
+service TripService {
+    rpc GetTrip(GetTripRequest) returns (TripResponse);
+    rpc ListTrips(ListTripsRequest) returns (ListTripsResponse);
+}

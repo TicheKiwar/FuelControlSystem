@@ -1,0 +1,11 @@
+{
+    "csharp.debug.logging.diagnosticsLog.debugRuntimeEventTracing": false,
+    "workbench.sideBar.location": "right",
+    "editor.minimap.enabled": false,
+    "breadcrumbs.enabled": false,
+    "editor.codeActionWidget.showHeaders": true,
+    "workbench.editor.showTabs": "none",
+    "zenMode.showTabs": "none",
+    "gitlens.views.repositories.showTags": true,
+    "workbench.editor.doubleClickTabToToggleEditorGroupSizes": "expand"
+}

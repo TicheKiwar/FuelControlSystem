@@ -32,9 +32,13 @@ namespace DriverServices.Infrastructure.Data.Persistence
 
             var licenseIndex = new CreateIndexModel<Driver>(
                 Builders<Driver>.IndexKeys.Ascending(d => d.License),
-                new CreateIndexOptions { Unique = false }); 
+                new CreateIndexOptions { Unique = false });
 
-            driversCollection.Indexes.CreateMany(new[] { dniIndex, licenseIndex });
+            var userIndex = new CreateIndexModel<Driver>(
+                Builders<Driver>.IndexKeys.Ascending(d => d.UserId),
+                new CreateIndexOptions { Unique = false });
+
+            driversCollection.Indexes.CreateMany(new[] { dniIndex, licenseIndex, userIndex });
         }
     }
 }

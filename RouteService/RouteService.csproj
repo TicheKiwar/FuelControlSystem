@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Confluent.Kafka" Version="2.11.0" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.71.0" />
     <PackageReference Include="Grpc.AspNetCore.Server" Version="2.71.0" />
     <PackageReference Include="Grpc.Tools" Version="2.71.0">
@@ -25,6 +26,8 @@
 	<ItemGroup>
 		<Protobuf Include="..\Protos\driver.proto" GrpcServices="Client" />
 		<Protobuf Include="..\Protos\vehicle.proto" GrpcServices="Client" />
+    <Protobuf Include="..\Protos\trip.proto" GrpcServices="Server" />
+		<Protobuf Include="..\Protos\route.proto" GrpcServices="Server" />
 	</ItemGroup>
 
   <ItemGroup>

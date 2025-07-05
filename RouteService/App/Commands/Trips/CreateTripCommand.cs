@@ -11,18 +11,18 @@ namespace RouteService.App.Commands.Trips
         public string DriverId { get; set; }
         public string VehicleId { get; set; }
         public string RouteId { get; set; }
-        public DateTime? StartTime { get; set; }
+        public DateTime StartTime { get; set; }
         public DateTime? EndTime { get; set; }
         public double ExpectedFuelConsumed { get; set; }
         public decimal? TotalCost { get; set; }
         public TripStatus Status { get; set; }
-        public bool IsEmergency { get; set; }
+        public bool IsEmergency { get; set; } = false;
 
         public CreateTripCommand(
             string driverId,
             string vehicleId,
             string routeId,
-            DateTime? startTime,
+            DateTime startTime,
             DateTime? endTime,
             double expectedFuelConsumed,
             decimal? totalCost,
