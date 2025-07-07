@@ -5,6 +5,8 @@ using DriverServices.Infrastructure.Data.Persistence;
 using FuelService.Domain.Entities;
 using FuelService.Domain.Interfaces;
 using FuelService.Infrastructure.Persistence;
+using FuelService.Infrastructure;
+using FuelService.App;
 using MediatR;
 
 
@@ -22,7 +24,10 @@ namespace DriverServices.Infrastructure
 
             services.Configure<JwtSettings>(configuration.GetSection("Jwt"));
             services.AddScoped<ITripAuditRepository, TripAuditRepository>();
+            services.AddScoped<TripEventHandler>();
 
+            // Registrar el consumer de Kafka como servicio hospedado
+            services.AddHostedService<TripEventConsumer>();
 
             return services;
         }
