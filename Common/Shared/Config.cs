@@ -53,7 +53,6 @@ namespace Common.Shared
 
             app.UseHttpsRedirection();
             app.UseCors("AllowAll");
-            app.UseMiddleware<JwtMiddleware>();
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();

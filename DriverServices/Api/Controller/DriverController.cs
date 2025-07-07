@@ -81,6 +81,7 @@ namespace DriverServices.Api.Controller
 
         // DELETE: api/Driver/{id}
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")] // Solo admins pueden eliminar conductores
         public async Task<IActionResult> DeleteDriver(string id)
         {
             var driver = await _driverRepository.GetByIdAsync(id);
