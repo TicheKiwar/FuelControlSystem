@@ -1,5 +1,6 @@
 ﻿using Common.Shared.Enums;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VehicleService.App.Commands.Create;
 using VehicleService.App.Commands.Update;
@@ -10,6 +11,7 @@ namespace VehicleService.Api.Controller
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class VehicleController : ControllerBase
     {
          private readonly IMediator _mediator;
@@ -41,6 +43,7 @@ namespace VehicleService.Api.Controller
 
         // POST: api/Vehicle
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> CreateVehicle([FromBody] CreateVehicleCommand command)
         {
             var result = await _mediator.Send(command);
@@ -54,6 +57,7 @@ namespace VehicleService.Api.Controller
 
         // PUT: api/Vehicle/{id}
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Update(string id, [FromBody] UpdateVehicleCommand command)
         {
             if (id != command.Id)
@@ -68,6 +72,7 @@ namespace VehicleService.Api.Controller
 
         // DELETE: api/Vehicle/{id}
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string id)
         {
             var vehicle = await _vehicleRepository.GetByIdAsync(id);

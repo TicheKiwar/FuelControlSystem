@@ -1,5 +1,6 @@
 ﻿using DriverServices.App.Interfaces;
 using DriverServices.Infrastructure.Services.Client;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DriverServices.Api.Controller
@@ -7,6 +8,7 @@ namespace DriverServices.Api.Controller
 
         [ApiController]
         [Route("api/[controller]")]
+        [Authorize]
         public class UserController : ControllerBase
         {
             private readonly IUserClient _userClient;

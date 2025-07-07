@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RouteService.App.Commands.Trips;
 using RouteService.Domain.Entities;
@@ -9,6 +10,7 @@ namespace RouteService.Api.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class TripController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -50,6 +52,7 @@ namespace RouteService.Api.Controllers
 
         // POST: api/Trip
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager,Driver")]
         public async Task<IActionResult> CreateTrip([FromBody] CreateTripCommand command)
         {
             var result = await _mediator.Send(command);
@@ -62,6 +65,7 @@ namespace RouteService.Api.Controllers
 
         // PUT: api/Trip/{id}
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Manager,Driver")]
         public async Task<IActionResult> Update(string id, [FromBody] UpdateTripCommand command)
         {
             if (id != command.Id)
@@ -76,6 +80,7 @@ namespace RouteService.Api.Controllers
 
         // DELETE: api/Trip/{id}
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteTrip(string id)
         {
             var trip = await _tripRepository.GetByIdAsync(id);

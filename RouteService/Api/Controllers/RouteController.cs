@@ -1,5 +1,6 @@
 ﻿using Common.Shared.Constants;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RouteService.App.Commands.Routes;
 using RouteService.Domain.Entities;
@@ -9,6 +10,7 @@ namespace RouteService.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class RouteController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -39,6 +41,7 @@ namespace RouteService.Api.Controllers
 
         // POST: api/Route
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Create([FromBody] CreateRouteCommand command)
         {
             var result = await _mediator.Send(command);
@@ -51,6 +54,7 @@ namespace RouteService.Api.Controllers
 
         // PUT: api/Route/{id}
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Update(string id, [FromBody] UpdateRouteCommand command)
         {
             if (id != command.Id)
@@ -65,6 +69,7 @@ namespace RouteService.Api.Controllers
 
         // DELETE: api/Route/{id}
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string id)
         {
             var existingRoute = await _routeRepository.GetByIdAsync(id);

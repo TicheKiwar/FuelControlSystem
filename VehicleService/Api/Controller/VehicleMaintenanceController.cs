@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VehicleService.App.Commands.VehicleMaintenanceCommand.Update;
 using VehicleService.App.Commands.VehicleMaintenanceCommand;
@@ -8,6 +9,7 @@ namespace VehicleService.Api.Controller
 {
         [ApiController]
         [Route("api/[controller]")]
+        [Authorize]
         public class VehicleMaintenanceController : ControllerBase
         {
             private readonly IMediator _mediator;
@@ -35,6 +37,7 @@ namespace VehicleService.Api.Controller
             }
 
             [HttpPost]
+            [Authorize(Roles = "Admin,Manager,Mechanic")]
             public async Task<IActionResult> Create([FromBody] CreateVehicleMaintenanceCommand command)
             {
                 var result = await _mediator.Send(command);
@@ -46,6 +49,7 @@ namespace VehicleService.Api.Controller
             }
 
             [HttpPut("{id}")]
+            [Authorize(Roles = "Admin,Manager,Mechanic")]
             public async Task<IActionResult> Update(string id, [FromBody] UpdateVehicleMaintenanceCommand command)
             {
                 if (id != command.Id)
@@ -59,6 +63,7 @@ namespace VehicleService.Api.Controller
             }
 
             [HttpDelete("{id}")]
+            [Authorize(Roles = "Admin")]
             public async Task<IActionResult> Delete(string id)
             {
                 var existing = await _vehicleMaintenanceRepository.GetByIdAsync(id);

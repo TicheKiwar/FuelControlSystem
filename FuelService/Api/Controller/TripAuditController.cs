@@ -2,12 +2,14 @@
 
 using FuelService.Domain.Entities;
 using FuelService.Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FuelService.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class TripAuditController : ControllerBase
 {
     private readonly ITripAuditRepository _repository;
@@ -32,6 +34,7 @@ public class TripAuditController : ControllerBase
     }
 
  [HttpGet("{routeId}/reports")]
+[Authorize(Roles = "Admin,Manager")]
 public async Task<ActionResult<IEnumerable<TripAudit>>> GetReportsByRoute(
     string routeId,
     [FromQuery] int skip = 0,

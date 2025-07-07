@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using DriverServices.App.Commands;
 using DriverServices.Domain.Interfaces.Repositories;
 using DriverServices.App.Commands.UpdateDriver;
@@ -8,6 +9,7 @@ namespace DriverServices.Api.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize] // Requiere autenticación para todos los endpoints
     public class DriverController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -49,6 +51,7 @@ namespace DriverServices.Api.Controller
 
         // POST: api/Driver
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")] // Solo admins y managers pueden crear conductores
         public async Task<IActionResult> CreateDriver([FromBody] CreateDriverRegistrationCommand command)
         {
             var result = await _mediator.Send(command);
@@ -61,6 +64,7 @@ namespace DriverServices.Api.Controller
 
         // PUT: api/Driver/{id}
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Manager")] // Solo admins y managers pueden actualizar conductores
         public async Task<IActionResult> Update(string id, [FromBody] UpdateDriverCommand command)
         {
             if (id != command.Id)
