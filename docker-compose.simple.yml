@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  # Base de datos MongoDB
+  mongo:
+    image: mongo:latest
+    container_name: fuel-mongo-db-simple
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin123
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - fuel-network
+
+  # AuthService - Solo el servicio de autenticación para empezar
+  auth-service:
+    build:
+      context: .
+      dockerfile: AuthService/Dockerfile
+    container_name: fuel-auth-service-simple
+    ports:
+      - "5001:8080"
+      - "5002:8081"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=mongodb://admin:admin123@mongo:27017/FuelAuthDB?authSource=admin
+    depends_on:
+      - mongo
+    networks:
+      - fuel-network
+
+volumes:
+  mongo_data:
+    driver: local
+
+networks:
+  fuel-network:
+    driver: bridge

@@ -1,0 +1,141 @@
+version: "3.8"
+
+services:
+  # Base de datos MongoDB
+  mongo:
+    image: mongo:latest
+    container_name: fuel-mongo-db
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin123
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - fuel-network
+
+  # AuthService - Servicio de autenticación
+  auth-service:
+    build:
+      context: .
+      dockerfile: AuthService/Dockerfile
+    container_name: fuel-auth-service
+    ports:
+      - "5001:8080"
+      - "5002:8081"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=mongodb://admin:admin123@mongo:27017/FuelAuthDB?authSource=admin
+    depends_on:
+      - mongo
+    networks:
+      - fuel-network
+
+  # DriverServices - Servicio de conductores
+  driver-service:
+    build:
+      context: .
+      dockerfile: DriverServices/Dockerfile
+    container_name: fuel-driver-service
+    ports:
+      - "5003:8080"
+      - "5004:8081"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=mongodb://admin:admin123@mongo:27017/FuelDriverDB?authSource=admin
+    depends_on:
+      - mongo
+      - auth-service
+    networks:
+      - fuel-network
+
+  # VehicleService - Servicio de vehículos
+  vehicle-service:
+    build:
+      context: .
+      dockerfile: VehicleService/Dockerfile
+    container_name: fuel-vehicle-service
+    ports:
+      - "5005:8080"
+      - "5006:8081"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=mongodb://admin:admin123@mongo:27017/FuelVehicleDB?authSource=admin
+    depends_on:
+      - mongo
+      - auth-service
+    networks:
+      - fuel-network
+
+  # RouteService - Servicio de rutas
+  route-service:
+    build:
+      context: .
+      dockerfile: RouteService/Dockerfile
+    container_name: fuel-route-service
+    ports:
+      - "5007:8080"
+      - "5008:8081"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=mongodb://admin:admin123@mongo:27017/FuelRouteDB?authSource=admin
+    depends_on:
+      - mongo
+      - auth-service
+    networks:
+      - fuel-network
+
+  # FuelService - Servicio de combustible
+  fuel-service:
+    build:
+      context: .
+      dockerfile: FuelService/Dockerfile
+    container_name: fuel-fuel-service
+    ports:
+      - "5009:8080"
+      - "5010:8081"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=mongodb://admin:admin123@mongo:27017/FuelConsumptionDB?authSource=admin
+    depends_on:
+      - mongo
+      - auth-service
+      - driver-service
+      - vehicle-service
+      - route-service
+    networks:
+      - fuel-network
+
+  # FuelControlSystem - API Gateway principal
+  fuel-control-system:
+    build:
+      context: .
+      dockerfile: FuelControlSystem/Dockerfile
+    container_name: fuel-control-system-gateway
+    ports:
+      - "5000:8080"
+      - "5011:8081"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Services__AuthService=http://auth-service:8080
+      - Services__DriverService=http://driver-service:8080
+      - Services__VehicleService=http://vehicle-service:8080
+      - Services__RouteService=http://route-service:8080
+      - Services__FuelService=http://fuel-service:8080
+    depends_on:
+      - auth-service
+      - driver-service
+      - vehicle-service
+      - route-service
+      - fuel-service
+    networks:
+      - fuel-network
+
+volumes:
+  mongo_data:
+    driver: local
+
+networks:
+  fuel-network:
+    driver: bridge
